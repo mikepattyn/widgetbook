@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:widgetbook/widgetbook.dart';
 
 import '../models/models.dart';
 import 'navigation_tree.dart';
@@ -25,6 +26,8 @@ class _NavigationPanelState extends State<NavigationPanel> {
 
   @override
   Widget build(BuildContext context) {
+    var state = WidgetbookState.of(context);
+
     return Container(
       constraints: const BoxConstraints(minWidth: 50, maxWidth: 300),
       child: Card(
@@ -32,17 +35,31 @@ class _NavigationPanelState extends State<NavigationPanel> {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             const SizedBox(height: 16),
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 12),
-              child: SearchField(
-                searchValue: searchQuery,
-                onSearchChanged: (value) {
-                  setState(() => searchQuery = value);
-                },
-                onSearchCancelled: () {
-                  setState(() => searchQuery = '');
-                },
-              ),
+            Flex(
+              direction: Axis.horizontal,
+              children: [
+                IconButton(
+                  iconSize: 30,
+                  alignment: Alignment.center,
+                  icon: const Icon(
+                    Icons.home,
+                    size: 28,
+                    color: Colors.white,
+                  ),
+                  onPressed: () => {state.updatePath('')},
+                ),
+                Expanded(
+                  child: SearchField(
+                    searchValue: searchQuery,
+                    onSearchChanged: (value) {
+                      setState(() => searchQuery = value);
+                    },
+                    onSearchCancelled: () {
+                      setState(() => searchQuery = '');
+                    },
+                  ),
+                ),
+              ],
             ),
             const SizedBox(height: 16),
             Expanded(

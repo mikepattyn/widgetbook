@@ -15,7 +15,9 @@ class WidgetbookShell extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final state = WidgetbookState.of(context);
+    var state = WidgetbookState.of(context);
+
+    if (state.path.isEmpty) state.path = 'widgetbookhomescreen/homescreen';
 
     return ColoredBox(
       color: Theme.of(context).colorScheme.surface,
